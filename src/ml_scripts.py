@@ -22,7 +22,7 @@ for filename in list_of_files:
 
 	X_data.append(res)
 	print(filename.split('-')[-1].replace('.jpg', ''))
-	y_data.append(np.array([float(filename.split('-')[-1].replace('.jpg', ''))]))
+	y_data.append(np.array([float(filename.split('-')[-1].replace('.jpg', ''))/1000]))
 
 	print(img.shape)
 	print(res.shape)
@@ -39,28 +39,28 @@ print(y_data.shape)
 
 model = Sequential()
 
-model.add(Conv2D(32, (3,3), input_shape=(720, 720, 3)))
+model.add(Conv2D(10, (3,3), input_shape=(720, 720, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Conv2D(32, (3, 3)))
+model.add(Conv2D(10, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 model.add(Flatten())  # this converts our 3D feature maps to 1D feature vectors
-model.add(Dense(64))
+model.add(Dense(20))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
-model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop',
+model.compile(loss='mse',
+              optimizer='SGD',
               metrics=['mse'])
 
 model.fit(
         X_data, y_data,
-        epochs=20,
+        epochs=10,
         verbose=1)
 
 model.save("static/results/model.h5")

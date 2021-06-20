@@ -4,9 +4,11 @@ click==8.0.1
 colorama==0.4.4
 dataclasses==0.8
 fastapi==0.65.2
+flask
 h11==0.12.0
 h5py==3.1.0
 importlib-metadata==4.5.0
+jinja2
 Keras==2.4.3
 numpy==1.19.5
 opencv-python==4.5.2.54
