@@ -63,4 +63,4 @@ model.fit(
         epochs=20,
         verbose=1)
 
-model.save_weights("static/results/model.h5")
+model.save("static/results/model.h5")
