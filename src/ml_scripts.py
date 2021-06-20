@@ -1,19 +1,33 @@
-# from keras.preprocessing.image import load_img
-# from keras.preprocessing.image import img_to_array
-
-# img = load_img("static/data/big-mac-1-550.jpg")
-# img_array = img_to_array(img)
-# print(img_array)
-
 import cv2
 import numpy as np 
 
-img = cv2.imread("static/data/big-mac-6-550.jpg")
-res = cv2.resize(img, dsize=(720,720), interpolation=cv2.INTER_CUBIC)
+import os
 
-print(img.shape)
-print(res.shape)
 
-cv2.imshow('image window', res)
-cv2.waitKey(0)
+PATH = "static/data"
 
+X_data = []
+y_data = []
+
+list_of_files = os.listdir(PATH)
+for filename in list_of_files:
+	print(PATH+'/'+filename)
+
+	img = cv2.imread(PATH+'/'+filename)
+	res = cv2.resize(img, dsize=(720,720), interpolation=cv2.INTER_CUBIC)
+
+	X_data.append(res)
+	print(filename.split('-')[-1].replace('.jpg', ''))
+	y_data.append(np.array([float(filename.split('-')[-1].replace('.jpg', ''))]))
+
+	print(img.shape)
+	print(res.shape)
+
+	cv2.imshow('image window', res)
+	cv2.waitKey(0)
+
+X_data = np.array(X_data)
+y_data = np.array(y_data)
+
+print(X_data.shape)
+print(y_data.shape)
