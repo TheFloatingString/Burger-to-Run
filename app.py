@@ -11,8 +11,6 @@ from keras.models import load_model
 
 import tensorflow as tf
 
-graph = tf.get_default_graph()
-
 
 model = load_model("static/results/model.h5")
 
@@ -43,7 +41,7 @@ def uploadPhoto():
 	calories = float(model.predict(np.array([image_array])))*1000
 
 
-	return {"filename": file.filename, "calories": 0}
+	return {"filename": file.filename, "calories": calories, "distance": float(calories/60)}
 
 if __name__ == '__main__':
 	app.run()
